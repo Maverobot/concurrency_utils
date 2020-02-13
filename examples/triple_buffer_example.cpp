@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace std::chrono_literals;
+using realtime_utils::TripleBuffer;
 
 int main(int argc, char* argv[]) {
   TripleBuffer<double> buf;
@@ -10,7 +11,10 @@ int main(int argc, char* argv[]) {
 
   std::thread print_thread([&buf, &stop] {
     while (!stop) {
-      std::cout << buf << std::endl;
+      std::cout << "instant value: " << buf << std::endl;
+      if (auto val = buf.wait_load_for(100ms)) {
+        std::cout << "waited value: " << val.get() << std::endl;
+      }
     }
   });
 

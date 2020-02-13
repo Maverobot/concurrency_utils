@@ -92,14 +92,13 @@ class TripleBuffer {
   }
 
   T instant_load() const {
-    // Load value from "present"
-    T val = *present_.load();
-
     // If there is a new "ready" value, swap "ready" and "present"
     if (!stale_.test_and_set()) {
       present_ = ready_.exchange(present_);
     }
-    return val;
+
+    // Load value from "present"
+    return *present_.load();
   }
 
  private:

@@ -1,0 +1,4 @@
+BasedOnStyle: Chromium
+SortIncludes: true
+SortUsingDeclarations: true
+ColumnLimit: 100

@@ -5,8 +5,12 @@
  */
 
 #include <atomic>
+#include <chrono>
 #include <thread>
 
+#include <boost/optional.hpp>
+
+namespace realtime_utils {
 template <typename T>
 class TripleBuffer {
  public:
@@ -65,18 +69,26 @@ class TripleBuffer {
     stale_.clear();
   }
 
-  T wait_load() const {
+  template <typename Clock, typename Duration>
+  boost::optional<T> wait_load_until(const std::chrono::time_point<Clock, Duration>& atime) const {
     // Wait until a new value was stored in "ready"
-    while (stale_.test_and_set())
-      ;
+    while (stale_.test_and_set()) {
+      // Exit if the waiting takes too long
+      if (Clock::now() > atime) {
+        return {};
+      }
+    }
 
     // Swap "ready" and "present"
     present_ = ready_.exchange(present_);
 
     // Load value from "present"
-    T val = *present_.load();
+    return *present_.load();
+  }
 
-    return val;
+  template <typename Rep, typename Period>
+  boost::optional<T> wait_load_for(const std::chrono::duration<Rep, Period>& rtime) const {
+    return wait_load_until(std::chrono::steady_clock::now() + rtime);
   }
 
   T instant_load() const {
@@ -99,3 +111,4 @@ class TripleBuffer {
   mutable std::atomic_flag stale_{ATOMIC_FLAG_INIT};
   T bufs_[3];
 };
+}  // namespace realtime_utils

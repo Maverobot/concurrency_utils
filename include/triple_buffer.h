@@ -1,5 +1,9 @@
 #pragma once
 
+/**
+ * Credit: https://codereview.stackexchange.com/q/163810/216881
+ */
+
 #include <atomic>
 #include <thread>
 

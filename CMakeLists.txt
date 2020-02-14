@@ -6,7 +6,32 @@ project(
 
 find_package(Threads REQUIRED)
 
+# Download catch2
+include(FetchContent)
+FetchContent_Declare(
+  catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG v2.11.1)
+FetchContent_GetProperties(catch2)
+if(NOT catch2_POPULATED)
+  FetchContent_Populate(catch2)
+endif()
+# Prepare "Catch" library for other executables
+set(CATCH_INCLUDE_DIR ${catch2_SOURCE_DIR}/single_include)
+add_library(Catch INTERFACE)
+target_include_directories(Catch INTERFACE ${CATCH_INCLUDE_DIR})
+
+# TODO: add target with interface
+add_library(realtime_utils INTERFACE)
+target_include_directories(realtime_utils INTERFACE include)
+target_link_libraries(realtime_utils INTERFACE Threads::Threads)
+
+# Examples
 add_executable(triple_buffer_example examples/triple_buffer_example.cpp)
-target_include_directories(triple_buffer_example PRIVATE include)
-target_link_libraries(triple_buffer_example Threads::Threads)
+target_link_libraries(triple_buffer_example realtime_utils Threads::Threads)
 target_compile_features(triple_buffer_example PRIVATE cxx_std_14)
+
+# Test
+set(TEST_SOURCES test/triple_buffer_test.cpp)
+add_executable(tests ${TEST_SOURCES})
+target_link_libraries(tests realtime_utils Catch)

@@ -6,8 +6,6 @@ project(
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-find_package(Threads REQUIRED)
-
 # Download catch2
 include(FetchContent)
 FetchContent_Declare(
@@ -24,6 +22,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${catch2_SOURCE_DIR}/contrib)
 add_library(Catch INTERFACE)
 target_include_directories(Catch INTERFACE ${CATCH_INCLUDE_DIR})
 
+find_package(Threads REQUIRED)
 add_library(realtime_utils INTERFACE)
 target_include_directories(realtime_utils INTERFACE include)
 target_link_libraries(realtime_utils INTERFACE Threads::Threads)

@@ -1,4 +1,6 @@
+[![Build Status](https://travis-ci.com/Maverobot/realtime_utils.svg?branch=master)](https://travis-ci.com/Maverobot/realtime_utils)
 # realtime_utils
+
 Simple header-only C++ utility library for real-time applications.
 
 ## License

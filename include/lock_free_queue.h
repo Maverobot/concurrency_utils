@@ -44,6 +44,7 @@ class LockFreeQueue {
   LockFreeQueue(const LockFreeQueue& other) = delete;
   LockFreeQueue& operator=(const LockFreeQueue& other) = delete;
 
+  // Pop a value from head
   std::shared_ptr<T> pop() {
     Node* old_head = popHead();
     if (!old_head) {
@@ -54,13 +55,20 @@ class LockFreeQueue {
     return res;
   }
 
+  // Push a new value to tail
   void push(T new_value) {
     std::shared_ptr<T> new_data(std::make_shared<T>(std::move(new_value)));
+
+    // Add data into the old tail which was empty
     Node* const old_tail = tail_.load();
     old_tail->data.swap(new_data);
-    Node* empty_end = new Node;
-    old_tail->next = empty_end;
-    tail_.store(empty_end);
+
+    // Let the old tail point to a new empty node
+    Node* empty_node = new Node;
+    old_tail->next = empty_node;
+
+    // Finally save the empty node as tail
+    tail_.store(empty_node);
   }
 
  private:
@@ -74,10 +82,12 @@ class LockFreeQueue {
   std::atomic<Node*> tail_;
 
   Node* popHead() {
+    // Get old head
     Node* const old_head = head_.load();
     if (old_head == tail_.load()) {
       return nullptr;
     }
+    // Let the next node be the new head
     head_.store(old_head->next);
     return old_head;
   }

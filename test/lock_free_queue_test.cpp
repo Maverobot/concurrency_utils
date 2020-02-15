@@ -31,6 +31,8 @@ TEST_CASE("lock_free_queue_single_producer_single_consumer", "lock_free_queue") 
   const std::vector<int> values = generate_random_integers(200, 0, 300);
   LockFreeQueue<int> queue;
 
+  REQUIRE(queue.pop() == nullptr);
+
   std::thread push_thread(push, std::ref(queue), std::cref(values));
   std::thread pop_thread(pop, std::ref(queue), std::cref(values));
 

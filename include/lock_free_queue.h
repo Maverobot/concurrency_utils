@@ -23,6 +23,11 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+
+/**
+ * This is a derived work from: https://github.com/anthonywilliams/ccia_code_samples
+ */
+
 #pragma once
 
 #include <atomic>

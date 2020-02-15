@@ -5,14 +5,22 @@ env:
     # Global build options and C++ flags
     - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow"
 
-matrix:
+jobs:
   include:
     - os: linux
       dist: bionic
-      sudo: true
-      compiler:
-        - gcc
-        - clang
+      compiler: gcc
+      addons:
+        apt:
+          packages: &bionic_latest_boost_packages
+            - gcc
+            - g++
+            - clang
+            - lcov
+            - libboost-dev
+    - os: linux
+      dist: bionic
+      compiler: clang
       addons:
         apt:
           packages: &bionic_latest_boost_packages

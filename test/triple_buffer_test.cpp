@@ -1,26 +1,11 @@
-// Let Catch provide main():
-#define CATCH_CONFIG_MAIN
-
 #include <catch2/catch.hpp>
 
 #include <triple_buffer.h>
 
+#include "utils.h"
+
 using realtime_utils::TripleBuffer;
 using namespace std::chrono_literals;
-
-std::vector<int> generate_random_integers(size_t number, int min, int max) {
-  // First create an instance of an engine.
-  std::random_device rnd_device;
-  // Specify the engine and distribution.
-  std::mt19937 mersenne_engine{rnd_device()};  // Generates random integers
-  std::uniform_int_distribution<int> dist{min, max};
-
-  auto gen = [&dist, &mersenne_engine]() { return dist(mersenne_engine); };
-
-  std::vector<int> vec(number);
-  generate(begin(vec), end(vec), gen);
-  return vec;
-}
 
 template <typename T>
 void store(TripleBuffer<T>& buf) {

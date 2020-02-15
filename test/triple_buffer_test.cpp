@@ -58,3 +58,9 @@ TEST_CASE("triple_buffer_store_load_thread", "tripe_buffer") {
     store_t.join();
   }
 }
+
+TEST_CASE("triple_buffer_empty_load", "triple_buffer") {
+  TripleBuffer<int> buffer;
+  REQUIRE_FALSE(buffer.wait_load_until(std::chrono::steady_clock::now() + 5ms).is_initialized());
+  REQUIRE_FALSE(buffer.wait_load_for(5ms).is_initialized());
+}

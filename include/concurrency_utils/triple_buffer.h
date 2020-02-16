@@ -38,9 +38,6 @@ namespace concurrency_utils {
 template <typename T>
 class TripleBuffer {
  public:
-  // Note: Default constructor does not consider the default T{} is a "ready" value for reading
-  template <typename U = T,
-            typename = std::enable_if_t<std::is_trivially_default_constructible<U>::value>>
   TripleBuffer() {
     bufs_[0] = T{};
     bufs_[1] = T{};

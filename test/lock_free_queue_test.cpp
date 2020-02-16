@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include <lock_free_queue.h>
+#include <concurrency_utils/lock_free_queue.h>
 
 #include "utils.h"
 

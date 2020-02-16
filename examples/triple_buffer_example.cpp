@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-#include <triple_buffer.h>
+#include <concurrency_utils/triple_buffer.h>
 #include <chrono>
 #include <iostream>
 

@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include <triple_buffer.h>
+#include <concurrency_utils/triple_buffer.h>
 
 #include "utils.h"
 

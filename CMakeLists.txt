@@ -12,7 +12,10 @@ include(cmake/FetchCatch2.cmake)
 # Create realtime_utils library
 find_package(Threads REQUIRED)
 add_library(realtime_utils INTERFACE)
-target_include_directories(realtime_utils INTERFACE include)
+target_include_directories(
+  realtime_utils
+  INTERFACE $<INSTALL_INTERFACE:include>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_link_libraries(realtime_utils INTERFACE Threads::Threads)
 
 # Examples

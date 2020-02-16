@@ -41,7 +41,7 @@ struct is_invocable
                             std::reference_wrapper<typename std::remove_reference<F>::type>> {};
 }  // namespace
 
-namespace realtime_utils {
+namespace concurrency_utils {
 
 template <typename DataT>
 class Executor {
@@ -93,4 +93,4 @@ class Executor {
   std::atomic<bool> keep_running_;
   std::atomic<bool> is_running_;
 };
-}  // namespace realtime_utils
+}  // namespace concurrency_utils

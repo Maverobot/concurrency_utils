@@ -7,7 +7,7 @@
 #include <iostream>
 #include <thread>
 
-using realtime_utils::LockFreeQueue;
+using concurrency_utils::LockFreeQueue;
 
 void push(LockFreeQueue<int>& queue, const std::vector<int>& values) {
   for (const auto& v : values) {

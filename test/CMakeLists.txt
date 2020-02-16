@@ -2,7 +2,7 @@
 set(TEST_SOURCES tests_main.cpp triple_buffer_test.cpp lock_free_queue_test.cpp
                  executor_test.cpp)
 add_executable(tests ${TEST_SOURCES})
-target_link_libraries(tests realtime_utils Catch)
+target_link_libraries(tests concurrency_utils Catch)
 target_compile_features(tests PRIVATE cxx_std_14)
 
 # Let ctest discover the tests

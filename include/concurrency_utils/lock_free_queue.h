@@ -28,7 +28,7 @@
 #include <atomic>
 #include <memory>
 
-namespace realtime_utils {
+namespace concurrency_utils {
 template <typename T>
 class LockFreeQueue {
  public:
@@ -92,4 +92,4 @@ class LockFreeQueue {
     return old_head;
   }
 };
-}  // namespace realtime_utils
+}  // namespace concurrency_utils

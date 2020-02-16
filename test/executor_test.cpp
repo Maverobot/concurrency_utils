@@ -18,7 +18,7 @@ TEST_CASE("executor", "executor") {
     }
   };
 
-  realtime_utils::Executor<int> exec(verification);
+  concurrency_utils::Executor<int> exec(verification);
   using namespace std::chrono_literals;
 
   for (auto v : vec) {

@@ -34,7 +34,7 @@
 
 #include <boost/optional.hpp>
 
-namespace realtime_utils {
+namespace concurrency_utils {
 template <typename T>
 class TripleBuffer {
  public:
@@ -135,4 +135,4 @@ class TripleBuffer {
   mutable std::atomic_flag stale_{ATOMIC_FLAG_INIT};
   T bufs_[3];
 };
-}  // namespace realtime_utils
+}  // namespace concurrency_utils

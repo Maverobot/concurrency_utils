@@ -4,7 +4,7 @@
 
 #include "utils.h"
 
-using realtime_utils::TripleBuffer;
+using concurrency_utils::TripleBuffer;
 using namespace std::chrono_literals;
 
 const auto vec = generate_random_integers(100, 1, 300);

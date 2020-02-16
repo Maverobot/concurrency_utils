@@ -27,7 +27,7 @@
 #include <iostream>
 
 using namespace std::chrono_literals;
-using realtime_utils::TripleBuffer;
+using concurrency_utils::TripleBuffer;
 
 int main(int argc, char* argv[]) {
   TripleBuffer<double> buf;

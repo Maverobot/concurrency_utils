@@ -29,6 +29,28 @@ jobs:
             - clang
             - lcov
             - libboost-dev
+    - os: linux
+      dist: xenial
+      compiler: gcc
+      addons:
+        apt:
+          packages: &bionic_latest_boost_packages
+            - gcc
+            - g++
+            - clang
+            - lcov
+            - libboost-dev
+    - os: linux
+      dist: xenial
+      compiler: clang
+      addons:
+        apt:
+          packages: &bionic_latest_boost_packages
+            - gcc
+            - g++
+            - clang
+            - lcov
+            - libboost-dev
 
 before_install:
   # Combine global build options with OS/compiler-dependent options

@@ -77,4 +77,5 @@ export(
   NAMESPACE ConcurrencyUtils::)
 
 # Register package in user's package registry
+set(CMAKE_EXPORT_PACKAGE_REGISTRY ON)
 export(PACKAGE ConcurrencyUtils)

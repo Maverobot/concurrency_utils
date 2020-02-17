@@ -28,3 +28,53 @@ if(ENABLE_TESTING)
   enable_testing()
   add_subdirectory(test)
 endif()
+
+# Install concurrency_utils
+include(GNUInstallDirs)
+set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/ConcurrencyUtils)
+
+install(
+  TARGETS concurrency_utils
+  EXPORT concurrency_utils-targets
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+# This is required so that the exported target has the name ConcurrencyUtils and
+# not concurrency_utils
+set_target_properties(concurrency_utils PROPERTIES EXPORT_NAME ConcurrencyUtils)
+
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# Export the targets to a script
+install(
+  EXPORT concurrency_utils-targets
+  FILE ConcurrencyUtilsTargets.cmake
+  NAMESPACE ConcurrencyUtils::
+  DESTINATION ${INSTALL_CONFIGDIR})
+
+# Create a ConfigVersion.cmake file
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/ConcurrencyUtilsConfigVersion.cmake
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY AnyNewerVersion)
+
+configure_package_config_file(
+  ${CMAKE_CURRENT_LIST_DIR}/cmake/ConcurrencyUtilsConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/ConcurrencyUtilsConfig.cmake INSTALL_DESTINATION
+  ${INSTALL_CONFIGDIR})
+
+# Install the config, configversion and custom find modules
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ConcurrencyUtilsConfig.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/ConcurrencyUtilsConfigVersion.cmake
+        DESTINATION ${INSTALL_CONFIGDIR})
+
+# ##############################################################################
+
+export(
+  EXPORT concurrency_utils-targets
+  FILE ${CMAKE_CURRENT_BINARY_DIR}/ConcurrencyUtilsTargets.cmake
+  NAMESPACE ConcurrencyUtils::)
+
+# Register package in user's package registry
+export(PACKAGE ConcurrencyUtils)

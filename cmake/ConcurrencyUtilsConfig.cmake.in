@@ -1,0 +1,17 @@
+get_filename_component(ConcurrencyUtils_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}"
+                       PATH)
+include(CMakeFindDependencyMacro)
+
+if(POLICY CMP0072)
+  cmake_policy(SET CMP0072 OLD)
+endif(POLICY CMP0072)
+
+list(APPEND CMAKE_MODULE_PATH ${ConcurrencyUtils_CMAKE_DIR})
+
+find_package(Threads REQUIRED)
+
+if(NOT TARGET ConcurrencyUtils::ConcurrencyUtils)
+  include("${ConcurrencyUtils_CMAKE_DIR}/ConcurrencyUtilsTargets.cmake")
+endif()
+
+set(ConcurrencyUtils_LIBRARIES ConcurrencyUtils::ConcurrencyUtils)

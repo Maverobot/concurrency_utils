@@ -1,3 +1,6 @@
+# Download catch2 and prepare it for usage
+include(../cmake/FetchCatch2.cmake)
+
 # Build tests
 set(TEST_SOURCES tests_main.cpp triple_buffer_test.cpp lock_free_queue_test.cpp
                  executor_test.cpp)

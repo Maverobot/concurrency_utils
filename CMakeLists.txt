@@ -6,9 +6,6 @@ project(
 
 option(ENABLE_TESTING "Enable testing for this project" ON)
 
-# Download catch2 and prepare it for usage
-include(cmake/FetchCatch2.cmake)
-
 # Create concurrency_utils library
 find_package(Threads REQUIRED)
 add_library(concurrency_utils INTERFACE)

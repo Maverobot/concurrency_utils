@@ -129,7 +129,7 @@ class TripleBuffer {
   mutable std::atomic<T*> ready_;
   mutable std::atomic<T*> inprogress_;
 
-  mutable std::atomic_flag stale_{ATOMIC_FLAG_INIT};
+  mutable std::atomic_flag stale_ = ATOMIC_FLAG_INIT;
   T bufs_[3];
-};
+};  // namespace concurrency_utils
 }  // namespace concurrency_utils
